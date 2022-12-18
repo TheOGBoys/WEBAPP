@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, jsonify
+from flask_login import login_required, current_user
+from . import db
+import json
 
-#AIL INI 17.12.22
-views = Blueprint('views', __name__) 
+views = Blueprint('views', __name__)
 
-@views.route('/')
+
+@views.route('/', methods=['GET', 'POST'])
+@login_required
 def home():
-    return render_template("home.html")
-#AIL END 17.12.22
+    return render_template("home.html", user=current_user)
