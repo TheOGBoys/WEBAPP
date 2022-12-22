@@ -14,6 +14,7 @@ def home():
 
 
 @views.route('/fixcode', methods=['GET', 'POST'])
+@login_required
 def generateCode():
     if request.method == "POST":
         
@@ -22,7 +23,7 @@ def generateCode():
 
         response = generateCodeAI(text, language)
 
-        return render_template("index.html", result=response)
+        return render_template("fixcode.html", result=response, user=current_user)
 
     result = request.args.get("result")
-    return render_template("index.html", result=result)
+    return render_template("fixcode.html", result=result, user=current_user)
